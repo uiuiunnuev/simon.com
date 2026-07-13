@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor_type": "superb_warfare_expanded:spawner_replacement"
+    }
+  ]
+}

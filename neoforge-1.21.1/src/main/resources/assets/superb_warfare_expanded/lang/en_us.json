@@ -1,0 +1,20 @@
+{
+  "block.superb_warfare_expanded.waypoint": "Conquest Waypoint",
+  "block.superb_warfare_expanded.landmine": "Landmine",
+  "block.superb_warfare_expanded.flag": "Garrison Flag",
+
+  "item.superb_warfare_expanded.grenade": "Hand Grenade",
+  "item.superb_warfare_expanded.soldier_spawn_egg": "Spawn Soldier",
+  "item.superb_warfare_expanded.sniper_spawn_egg": "Spawn Sniper",
+  "item.superb_warfare_expanded.commander_spawn_egg": "Spawn Commander",
+
+  "entity.superb_warfare_expanded.soldier": "Soldier",
+  "entity.superb_warfare_expanded.sniper": "Sniper",
+  "entity.superb_warfare_expanded.commander": "Commander",
+  "entity.superb_warfare_expanded.thrown_grenade": "Thrown Grenade",
+
+  "advancement.superb_warfare_expanded.conquest.title": "Victory at the Bunker",
+  "advancement.superb_warfare_expanded.conquest.desc": "Conquer a soldier bunker by activating its Waypoint!",
+  "advancement.superb_warfare_expanded.commander_defeat.title": "Officer Down",
+  "advancement.superb_warfare_expanded.commander_defeat.desc": "Defeat a high-ranking Commander of the soldier garrison."
+}

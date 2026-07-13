@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "active=false": { "model": "superb_warfare_expanded:block/waypoint" },
+    "active=true": { "model": "superb_warfare_expanded:block/waypoint_active" }
+  }
+}

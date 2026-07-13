@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "conquered=false": { "model": "superb_warfare_expanded:block/flag" },
+    "conquered=true": { "model": "superb_warfare_expanded:block/flag" }
+  }
+}

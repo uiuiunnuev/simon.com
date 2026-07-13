@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="superb_warfare_expanded"
+version="${version}"
+displayName="Superb Warfare Expanded"
+authors="superb_warfare_expanded"
+description="Superb Warfare Expanded Addon for Forge 1.20.1."
+
+[[dependencies.superb_warfare_expanded]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.superb_warfare_expanded]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"

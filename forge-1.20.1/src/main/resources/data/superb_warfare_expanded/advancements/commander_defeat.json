@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "superb_warfare_expanded:grenade"
+    },
+    "title": {
+      "translate": "advancement.superb_warfare_expanded.commander_defeat.title"
+    },
+    "description": {
+      "translate": "advancement.superb_warfare_expanded.commander_defeat.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "defeat_accomplished": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
