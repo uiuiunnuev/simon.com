@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "triggered=false": { "model": "superb_warfare_expanded:block/landmine" },
-    "triggered=true": { "model": "superb_warfare_expanded:block/landmine" }
-  }
-}

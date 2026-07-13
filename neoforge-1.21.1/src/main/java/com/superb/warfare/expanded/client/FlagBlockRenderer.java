@@ -69,9 +69,9 @@ public class FlagBlockRenderer implements BlockEntityRenderer<FlagBlockEntity> {
     }
 
     private void drawQuad(VertexConsumer consumer, Matrix4f matrix, float minX, float minY, float maxX, float maxY, float z, float minU, float maxU, float minV, float maxV, int light) {
-        consumer.vertex(matrix, minX, minY, z).color(255, 255, 255, 255).uv(minU, maxV).overlayCoords(0, 0).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, maxX, minY, z).color(255, 255, 255, 255).uv(maxU, maxV).overlayCoords(0, 0).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, maxX, maxY, z).color(255, 255, 255, 255).uv(maxU, minV).overlayCoords(0, 0).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, minX, maxY, z).color(255, 255, 255, 255).uv(minU, minV).overlayCoords(0, 0).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
+        consumer.addVertex(matrix, minX, minY, z).setColor(255, 255, 255, 255).setUv(minU, maxV).setUv1(0, 0).setUv2(light).setNormal(0.0F, 0.0F, 1.0F);
+        consumer.addVertex(matrix, maxX, minY, z).setColor(255, 255, 255, 255).setUv(maxU, maxV).setUv1(0, 0).setUv2(light).setNormal(0.0F, 0.0F, 1.0F);
+        consumer.addVertex(matrix, maxX, maxY, z).setColor(255, 255, 255, 255).setUv(maxU, minV).setUv1(0, 0).setUv2(light).setNormal(0.0F, 0.0F, 1.0F);
+        consumer.addVertex(matrix, minX, maxY, z).setColor(255, 255, 255, 255).setUv(minU, minV).setUv1(0, 0).setUv2(light).setNormal(0.0F, 0.0F, 1.0F);
     }
 }

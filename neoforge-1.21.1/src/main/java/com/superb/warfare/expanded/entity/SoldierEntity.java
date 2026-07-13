@@ -48,7 +48,7 @@ public class SoldierEntity extends AbstractSoldierEntity {
 
         if (this.grenadeCooldown == 0 && dist > 16.0D && dist < 144.0D && this.random.nextFloat() < 0.25F) {
             this.grenadeCooldown = 150;
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILES, 1.0F, 1.0F);
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILE, 1.0F, 1.0F);
             ThrownGrenade grenade = new ThrownGrenade(this.level(), this);
             double d0 = target.getX() - this.getX();
             double d1 = target.getY(0.3333333333333333D) - grenade.getY();
@@ -59,7 +59,7 @@ public class SoldierEntity extends AbstractSoldierEntity {
             return;
         }
 
-        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILES, 1.0F, 2.0F);
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.0F, 2.0F);
         target.hurt(this.damageSources().mobAttack(this), 5.0F);
 
         double dx = target.getX() - this.getX();

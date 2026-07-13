@@ -5,9 +5,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SyncedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -31,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class AbstractSoldierEntity extends Monster implements RangedAttackMob {
-    public static final EntityDataAccessor<Byte> STATE = SyncedEntityData.defineId(AbstractSoldierEntity.class, EntityDataSerializers.BYTE);
+    public static final EntityDataAccessor<Byte> STATE = SynchedEntityData.defineId(AbstractSoldierEntity.class, EntityDataSerializers.BYTE);
 
     public static final byte STATE_PATROL = 0;
     public static final byte STATE_ALERT = 1;
@@ -61,12 +62,12 @@ public abstract class AbstractSoldierEntity extends Monster implements RangedAtt
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).toAndWithOtherMobs(AbstractSoldierEntity.class));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
-    protected void defineSynchedData(SyncedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE, STATE_PATROL);
     }
@@ -148,15 +149,15 @@ public abstract class AbstractSoldierEntity extends Monster implements RangedAtt
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-        this.populateDefaultEquipmentSlots(difficulty);
+        this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         return data;
     }
 
     protected abstract String getWeaponItemId();
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        super.populateDefaultEquipmentSlots(difficulty);
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(random, difficulty);
         String gunId = getWeaponItemId();
         ItemStack weaponStack = ItemStack.EMPTY;
         try {

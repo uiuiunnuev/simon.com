@@ -46,10 +46,9 @@ public class SoldierEntity extends AbstractSoldierEntity {
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         double dist = this.distanceToSqr(target);
 
-        // Soldier throws grenade if cooldown is 0 and target is at a reasonable range
         if (this.grenadeCooldown == 0 && dist > 16.0D && dist < 144.0D && this.random.nextFloat() < 0.25F) {
-            this.grenadeCooldown = 150; // 7.5 seconds
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILES, 1.0F, 1.0F);
+            this.grenadeCooldown = 150;
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILE, 1.0F, 1.0F);
             ThrownGrenade grenade = new ThrownGrenade(this.level(), this);
             double d0 = target.getX() - this.getX();
             double d1 = target.getY(0.3333333333333333D) - grenade.getY();
@@ -60,13 +59,9 @@ public class SoldierEntity extends AbstractSoldierEntity {
             return;
         }
 
-        // Fire rifle shot (AK-47)
-        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILES, 1.0F, 2.0F);
-
-        // Deal raytrace-like rifle damage
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.0F, 2.0F);
         target.hurt(this.damageSources().mobAttack(this), 5.0F);
 
-        // Visual bullet trace
         double dx = target.getX() - this.getX();
         double dy = target.getY() - this.getY();
         double dz = target.getZ() - this.getZ();

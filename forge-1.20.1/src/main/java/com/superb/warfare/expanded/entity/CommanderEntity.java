@@ -51,10 +51,9 @@ public class CommanderEntity extends AbstractSoldierEntity {
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         double dist = this.distanceToSqr(target);
 
-        // Commander throws grenade
         if (this.grenadeCooldown == 0 && dist > 16.0D && dist < 144.0D && this.random.nextFloat() < 0.35F) {
-            this.grenadeCooldown = 120; // 6 seconds (faster than regular soldier)
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILES, 1.0F, 1.0F);
+            this.grenadeCooldown = 120;
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.HOSTILE, 1.0F, 1.0F);
             ThrownGrenade grenade = new ThrownGrenade(this.level(), this);
             double d0 = target.getX() - this.getX();
             double d1 = target.getY(0.3333333333333333D) - grenade.getY();
@@ -65,13 +64,9 @@ public class CommanderEntity extends AbstractSoldierEntity {
             return;
         }
 
-        // Deagle fire sound (medium pitch explosive sound)
-        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILES, 0.9F, 1.5F);
-
-        // Deagle damage
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 0.9F, 1.5F);
         target.hurt(this.damageSources().mobAttack(this), 4.5F);
 
-        // Visual bullet trace
         double dx = target.getX() - this.getX();
         double dy = target.getY() - this.getY();
         double dz = target.getZ() - this.getZ();
@@ -88,7 +83,6 @@ public class CommanderEntity extends AbstractSoldierEntity {
     public void die(DamageSource source) {
         super.die(source);
         if (!this.level().isClientSide) {
-            // Find conquering player
             Player conqueror = null;
             if (source.getEntity() instanceof Player p) {
                 conqueror = p;
@@ -97,10 +91,8 @@ public class CommanderEntity extends AbstractSoldierEntity {
             }
 
             if (conqueror != null) {
-                // Award advancement for Commander defeat
                 SWEBlocks.triggerCommanderDefeatAdvancement(conqueror);
 
-                // Find nearest Waypoint and activate it
                 BlockPos pos = this.blockPosition();
                 for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-30, -15, -30), pos.offset(30, 15, 30))) {
                     if (this.level().getBlockState(bPos).is(SWEBlocks.WAYPOINT.get())) {

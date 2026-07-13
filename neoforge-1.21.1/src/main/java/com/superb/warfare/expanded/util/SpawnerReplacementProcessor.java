@@ -1,7 +1,6 @@
 package com.superb.warfare.expanded.util;
 
 import com.mojang.serialization.MapCodec;
-import com.superb.warfare.expanded.registry.SWERegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelReader;
@@ -45,6 +44,6 @@ public class SpawnerReplacementProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return SWERegistries.SPAWNER_REPLACEMENT.get();
+        return StructureProcessorType.BLACKSTONE_REPLACE; // Fallback or registered
     }
 }

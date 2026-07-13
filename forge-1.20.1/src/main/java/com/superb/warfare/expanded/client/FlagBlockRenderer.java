@@ -14,8 +14,6 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 
-import java.util.UUID;
-
 public class FlagBlockRenderer implements BlockEntityRenderer<FlagBlockEntity> {
     private static final ResourceLocation PIRATE_TEXTURE = new ResourceLocation("superb_warfare_expanded", "textures/block/pirate_flag.png");
 
@@ -26,8 +24,10 @@ public class FlagBlockRenderer implements BlockEntityRenderer<FlagBlockEntity> {
     public void render(FlagBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         poseStack.pushPose();
 
+        // Translate to block center
         poseStack.translate(0.5D, 0.5D, 0.5D);
 
+        // Get state
         boolean conquered = false;
         if (blockEntity.getLevel() != null) {
             conquered = blockEntity.getBlockState().getValue(FlagBlock.CONQUERED);
@@ -35,33 +35,44 @@ public class FlagBlockRenderer implements BlockEntityRenderer<FlagBlockEntity> {
 
         ResourceLocation texture = PIRATE_TEXTURE;
         if (conquered) {
-            UUID uuid = blockEntity.getConquerorUUID() != null ? blockEntity.getConquerorUUID() : UUID.randomUUID();
-            try {
+            if (blockEntity.getConquerorUUID() != null) {
+                // Fetch player's actual skin texture dynamically
                 texture = Minecraft.getInstance().getSkinManager()
-                        .getInsecureSkinLocation(new com.mojang.authlib.GameProfile(uuid, blockEntity.getConquerorName()));
-            } catch (Exception e) {
-                texture = DefaultPlayerSkin.getDefaultSkin(uuid);
+                        .getInsecureSkin(new com.mojang.authlib.GameProfile(blockEntity.getConquerorUUID(), blockEntity.getConquerorName()))
+                        .texture();
+            } else {
+                texture = DefaultPlayerSkin.getDefaultSkin();
             }
         }
 
+        // Draw a flat flag plane/banner
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(texture));
 
+        // Face North/South
         poseStack.mulPose(Axis.YP.rotationDegrees(0));
 
         Matrix4f matrix = poseStack.last().pose();
 
+        // Render flag cloth: a standard rectangular quad
+        // If it's a player skin, the face is located at texture coords (8, 8) to (16, 16) in a 64x64 skin.
+        // We can draw a quad representing the player face or full flag.
+        // Let's render the entire texture on the flag banner.
         float minU = 0.0F;
         float maxU = 1.0F;
         float minV = 0.0F;
         float maxV = 1.0F;
 
         if (conquered) {
+            // For conquered player skin, let's map the front of the face texture (U: 8-16, V: 8-16 in 64x64 skin)
+            // U: 8/64 = 0.125 to 16/64 = 0.25
+            // V: 8/64 = 0.125 to 16/64 = 0.25
             minU = 0.125F;
             maxU = 0.25F;
             minV = 0.125F;
             maxV = 0.25F;
         }
 
+        // Draw the quad
         drawQuad(consumer, matrix, -0.4F, -0.4F, 0.4F, 0.4F, 0.0F, minU, maxU, minV, maxV, packedLight);
 
         poseStack.popPose();

@@ -2,25 +2,13 @@
   "structures": [
     {
       "structure": "superb_warfare_expanded:bunker",
-      "weight": 2
-    },
-    {
-      "structure": "superb_warfare_expanded:barracks",
-      "weight": 2
-    },
-    {
-      "structure": "superb_warfare_expanded:watchtower",
-      "weight": 3
-    },
-    {
-      "structure": "superb_warfare_expanded:trench_outpost",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 24,
-    "separation": 6,
+    "spacing": 32,
+    "separation": 8,
     "spread_type": "linear",
     "salt": 46835284
   }

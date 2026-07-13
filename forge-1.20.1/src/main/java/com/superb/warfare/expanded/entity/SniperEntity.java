@@ -25,7 +25,6 @@ public class SniperEntity extends AbstractSoldierEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        // Snipers fire slower (50 ticks) but have very long distance (30 blocks)
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 0.9D, 50, 30.0F));
     }
 
@@ -36,13 +35,9 @@ public class SniperEntity extends AbstractSoldierEntity {
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        // Fire sniper shot (M24) - low pitch explosive shot
-        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILES, 1.2F, 0.8F);
-
-        // High sniper damage
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.2F, 0.8F);
         target.hurt(this.damageSources().mobAttack(this), 10.0F);
 
-        // Visual bullet trace (very dense for sniper)
         double dx = target.getX() - this.getX();
         double dy = target.getY() - this.getY();
         double dz = target.getZ() - this.getZ();

@@ -35,7 +35,7 @@ public class SniperEntity extends AbstractSoldierEntity {
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILES, 1.2F, 0.8F);
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.2F, 0.8F);
         target.hurt(this.damageSources().mobAttack(this), 10.0F);
 
         double dx = target.getX() - this.getX();

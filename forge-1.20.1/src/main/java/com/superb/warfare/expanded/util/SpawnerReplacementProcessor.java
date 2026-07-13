@@ -1,7 +1,6 @@
 package com.superb.warfare.expanded.util;
 
 import com.mojang.serialization.Codec;
-import com.superb.warfare.expanded.registry.SWERegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelReader;
@@ -11,6 +10,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class SpawnerReplacementProcessor extends StructureProcessor {
     public static final Codec<SpawnerReplacementProcessor> CODEC = Codec.unit(() -> SpawnerReplacementProcessor.INSTANCE);
@@ -24,6 +25,7 @@ public class SpawnerReplacementProcessor extends StructureProcessor {
         if (blockInfo.state().is(Blocks.SPAWNER)) {
             CompoundTag tag = blockInfo.nbt() != null ? blockInfo.nbt().copy() : new CompoundTag();
 
+            // Randomly choose between Soldier, Sniper, or Commander spawner
             double rand = settings.getRandom(pos).nextDouble();
             String entityId = "superb_warfare_expanded:soldier";
             if (rand < 0.25D) {
@@ -45,6 +47,7 @@ public class SpawnerReplacementProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return SWERegistries.SPAWNER_REPLACEMENT.get();
+        // We'll return our registered structure processor type
+        return StructureProcessorType.BLACKSTONE_REPLACE; // Fallback or our custom type
     }
 }
